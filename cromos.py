@@ -8,4 +8,3 @@ class Cromos:
         self.estado = estado
 
     def rareza(self):
-#lucas es pachito
