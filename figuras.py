@@ -9,6 +9,12 @@ class Figura:
         self.largo = largo
         self.estado = estado
 
+    def __str__(self):
+        return (f'{self.nombre} - {self.marca} ({self.modelo}) '
+                f'Rareza: {self.rarezas()} '
+                f'Tamaño: {self.tam()} ({self.ancho},{self.alto},{self.largo}) '
+                f'Precio: {self.precio()}')
+
     def tam(self):
         return self.alto * self.largo * self.ancho
 
@@ -22,8 +28,36 @@ class Figura:
             rareza = 'raro'
         elif self.copias > 1000:
             rareza = 'super raro'
-        elif self.copias > 100:
+        elif self.copias > 10:
             rareza = 'ultra raro'
-        elif self.copias == 1:
+        elif self.copias <= 10:
             rareza = 'único'
         return rareza
+
+    def precio(self):
+        precio = (3**self.estado / self.copias) * self.tam()
+        return precio
+
+    def restaurar(self, mejora):
+        estado_anterior = self.estado
+        self.estado = min(10, self.estado + mejora)  # Suponiendo que 10 es el máximo
+        print(f'{self.nombre} restaurada. Estado: {estado_anterior} -> {self.estado}')
+
+    def categoria_tamano(self):
+        if self.alto < 10:
+            return 'Miniatura'
+        elif 10 <= self.alto <= 30:
+            return 'Escala estándar (1/12 o 1/6)'
+        else:
+            return 'Gran formato / Estatua'
+
+    def ficha_tecnica(self):
+        print('-' * 30)
+        print(f'FICHA TÉCNICA: {self.nombre}')
+        print('-' * 30)
+        print(f'Marca/Modelo: {self.marca} / {self.modelo}')
+        print(f'Dimensiones:  {self.alto}x{self.ancho}x{self.largo} cm (Volumen: {self.tam()} cm³)')
+        print(f'Copias/Rareza: {self.copias} ({self.rarezas()})')
+        print(f'Estado:       {self.estado}')
+        print(f'Valor Est.:   ${self.precio():.2f}')
+        print('-' * 30)
