@@ -27,3 +27,4 @@ class Figura:
         elif self.copias == 1:
             rareza = 'único'
         return rareza
+#panchirriquitillo
